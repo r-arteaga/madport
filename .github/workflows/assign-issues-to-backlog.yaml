@@ -1,0 +1,17 @@
+name: Auto Assign issues to Project's Backlog
+on:
+  issues:
+    types: [opened]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign issue to backlog
+    steps:
+      - name: Assign NEW issues to Kanban
+        uses: srggrs/assign-one-project-github-action@1.3.1
+        if: github.event.action == 'opened'
+        with:
+          project: 'https://github.com/r-arteaga/madport/projects/1'
+          column_name: 'Backlog'
