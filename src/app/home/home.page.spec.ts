@@ -5,6 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from "@angular/router/testing";
 import { HomePage } from './home.page';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
+import { UserService } from '../shared/data-access/user.service';
+
+const userServiceMock = {
+   userSettings$: of({
+    name: "John"
+   })
+}
 
 describe('HomePage', () => {
   let page: HomePage
@@ -15,7 +23,8 @@ describe('HomePage', () => {
     TestBed.overrideComponent(HomePage, {
       set: {
         imports: [CommonModule, IonicModule, RouterTestingModule],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [{ provide: UserService, useValue: userServiceMock }]
       }
     })
 
@@ -31,6 +40,11 @@ describe('HomePage', () => {
 
   it('should have a welcome message', () => {
     const welcome = fixture.debugElement.query(By.css('.welcome-message'))
-    expect(welcome.nativeElement.textContent).toContain('Welcome!')
+    expect(welcome.nativeElement.textContent).toContain('Welcome')
+  })
+
+  it('should show user name in greeting message', () => {
+    const welcome = fixture.debugElement.query(By.css('.welcome-message'))
+    expect(welcome.nativeElement.textContent).toContain('John')
   })
 })
