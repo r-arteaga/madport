@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from "@angular/router/testing";
 import { HomePage } from './home.page';
+import { By } from '@angular/platform-browser';
 
 describe('HomePage', () => {
   let page: HomePage
@@ -26,5 +27,10 @@ describe('HomePage', () => {
 
   it('should create the page', () => {
     expect(page).toBeTruthy();
+  })
+
+  it('should have a welcome message', () => {
+    const welcome = fixture.debugElement.query(By.css('.welcome-message'))
+    expect(welcome).toContain('Welcome!')
   })
 })
