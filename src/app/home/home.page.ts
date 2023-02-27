@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { filter, map, Observable } from 'rxjs';
 import { UserService } from '../shared/data-access/user.service';
@@ -13,7 +14,8 @@ import { UserService } from '../shared/data-access/user.service';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule
   ],
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +31,11 @@ import { UserService } from '../shared/data-access/user.service';
         <ion-title>
           Home
         </ion-title>
+        <ion-buttons slot="end">
+          <ion-button routerLink="/settings">
+            <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
