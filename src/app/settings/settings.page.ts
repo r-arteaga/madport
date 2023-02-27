@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { UserService } from '../shared/data-access/user.service';
+import { delay, filter, Observable } from 'rxjs';
+import { UserService, UserSettings } from '../shared/data-access/user.service';
+import { UserSettingsComponent } from './ui/user-settings.component';
 
 @Component({
   // +--------------------+
@@ -12,7 +16,8 @@ import { UserService } from '../shared/data-access/user.service';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    UserSettingsComponent
   ],
   selector: 'app-settings',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,11 +36,16 @@ import { UserService } from '../shared/data-access/user.service';
         <ion-title>
           Settings
         </ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="saveUserSettings()">
+            <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
-      settings working!
+      <app-user-settings [formGroup]="formGroup" [userSettings]="userSettings$ | async"></app-user-settings>
     </ion-content>
   `,
 
@@ -57,6 +67,23 @@ import { UserService } from '../shared/data-access/user.service';
 // +-------------------+
 export class SettingsPage {
 
-  constructor(private userService: UserService) { }
+  userSettings$: Observable<UserSettings | null> = this.userService.userSettings$
+
+  formGroup = this.fb.group({
+    name: ''
+  })
+
+  constructor(
+    private userService: UserService, 
+    private fb: FormBuilder, 
+    private router: Router
+  ) { }
+
+  saveUserSettings() {
+    const userSettings: UserSettings = this.formGroup.value as UserSettings
+    this.userService.setUserSettings(userSettings)
+
+    this.router.navigateByUrl('/', { replaceUrl: true })
+  }
 
 }
