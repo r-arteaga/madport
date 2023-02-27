@@ -13,7 +13,28 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'app.component.html',
+
+  // +----------------------+
+  // |                      |
+  // |  COMPONENT TEMPLATE  |
+  // |                      |
+  // +----------------------+
+  template: `
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          Home
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div id="container">
+        <strong>Ready to create an app?</strong>
+        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      </div>
+    </ion-content>
+  `,
   styleUrls: ['app.component.scss'],
 })
 
@@ -23,5 +44,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 // |                   |
 // +-------------------+
 export class AppComponent {
+
   constructor(public environmentInjector: EnvironmentInjector) { }
+  
 }
