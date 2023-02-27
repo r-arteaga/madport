@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { filter, map, Observable } from 'rxjs';
+import { UserService } from '../shared/data-access/user.service';
 
 @Component({
   // +--------------------+
@@ -32,7 +34,10 @@ import { IonicModule } from '@ionic/angular';
 
     <ion-content>
       <div id="container">
-        <span class="welcome-message">Welcome!</span>
+        <ng-container *ngIf="{ name: name$ | async } as vm">
+          <span *ngIf="!vm.name || vm.name == ''" class="welcome-message">Welcome!</span>
+          <span *ngIf="vm.name" class="welcome-message">Welcome {{ name$ | async }}!</span>
+        </ng-container>
       </div>
     </ion-content>
   `,
@@ -68,6 +73,11 @@ import { IonicModule } from '@ionic/angular';
 // +-------------------+
 export class HomePage {
 
-  constructor() { }
+  name$: Observable<string> = this.userService.userSettings$.pipe(
+    filter(value => !!value),
+    map(userSettings => userSettings!.name)
+  )
+
+  constructor(private userService: UserService) { }
 
 }
