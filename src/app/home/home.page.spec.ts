@@ -31,6 +31,6 @@ describe('HomePage', () => {
 
   it('should have a welcome message', () => {
     const welcome = fixture.debugElement.query(By.css('.welcome-message'))
-    expect(welcome).toContain('Welcome!')
+    expect(welcome.nativeElement.textContent).toContain('Welcome!')
   })
 })
