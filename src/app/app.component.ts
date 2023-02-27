@@ -35,7 +35,17 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
       </div>
     </ion-content>
   `,
-  styleUrls: ['app.component.scss'],
+
+  // +--------------------+
+  // |                    |
+  // |  COMPONENT STYLES  |
+  // |                    |
+  // +--------------------+
+  styles: [
+    `
+  
+    `
+  ]
 })
 
 // +-------------------+
@@ -46,5 +56,5 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 export class AppComponent {
 
   constructor(public environmentInjector: EnvironmentInjector) { }
-  
+
 }
