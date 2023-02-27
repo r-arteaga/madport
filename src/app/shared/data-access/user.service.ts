@@ -48,7 +48,7 @@ export class UserService {
     }
   }
 
-  private async setUserSettings(newUserSettings: UserSettings) {
+  async setUserSettings(newUserSettings: UserSettings) {
     await Preferences.set({
       key: USER_SETTINGS_KEY,
       value: JSON.stringify(newUserSettings)
