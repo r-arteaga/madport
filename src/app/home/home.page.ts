@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { filter, map, Observable } from 'rxjs';
@@ -80,11 +80,11 @@ import { UserService } from '../shared/data-access/user.service';
 // +-------------------+
 export class HomePage {
 
+  private userService = inject(UserService)
+
   name$: Observable<string> = this.userService.userSettings$.pipe(
     filter(value => !!value),
     map(userSettings => userSettings!.name)
   )
-
-  constructor(private userService: UserService) { }
 
 }

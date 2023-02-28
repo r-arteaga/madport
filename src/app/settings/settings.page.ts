@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { delay, filter, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService, UserSettings } from '../shared/data-access/user.service';
 import { UserSettingsComponent } from './ui/user-settings.component';
 
@@ -67,17 +67,15 @@ import { UserSettingsComponent } from './ui/user-settings.component';
 // +-------------------+
 export class SettingsPage {
 
+  private userService = inject(UserService)
+  private fb = inject(FormBuilder)
+  private router = inject(Router)
+
   userSettings$: Observable<UserSettings | null> = this.userService.userSettings$
 
   formGroup = this.fb.group({
     name: ''
   })
-
-  constructor(
-    private userService: UserService, 
-    private fb: FormBuilder, 
-    private router: Router
-  ) { }
 
   saveUserSettings() {
     const userSettings: UserSettings = this.formGroup.value as UserSettings

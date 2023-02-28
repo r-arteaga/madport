@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EnvironmentInjector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EnvironmentInjector, inject } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -44,6 +44,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 // +-------------------+
 export class AppComponent {
 
-  constructor(public environmentInjector: EnvironmentInjector) { }
+  environmentInjector = inject(EnvironmentInjector)
 
 }
